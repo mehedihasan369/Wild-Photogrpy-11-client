@@ -23,7 +23,10 @@ const Header = () => {
           <li><Link className="btn bg-rose-900 m-1 font-semibold" onClick={handleLogOut}>Logout</Link></li>
           </>
           :
-          <li className='font-semibold'><Link to='/login' className="btn bg-rose-900" >Login</Link></li>
+          <>
+          <li className='font-semibold'><Link to='/login' className=" bg-rose-900" >Login</Link></li>
+          <li className='font-semibold'><Link to='/signup' className=" bg-rose-900" >Sign Up</Link></li>
+          </>
       }
   </>
 

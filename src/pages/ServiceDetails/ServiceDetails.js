@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLoaderData } from 'react-router';
+import { Link } from 'react-router-dom';
 import Review from '../Review/Review';
 import  './ServiceDetails.css'
 
@@ -9,7 +10,7 @@ const ServiceDetails = () => {
    const { serviceTitle,image,rating, description,Speech1,Speech2,Speech3,Speech1Description,Speech2Description ,Speech3Description } =data
     return (
         <div>
-
+<Link to='/add-a-service'>add</Link>
 <div className=' banner-2 text-center '>
    <img className='w-full h-96 brightness-50'  src={image} alt="" />
 <div className='font-extrabold sm:px-10  text-white text-6xl title'>

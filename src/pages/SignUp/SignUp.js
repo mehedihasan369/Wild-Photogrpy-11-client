@@ -1,10 +1,35 @@
-import React, { useContext } from 'react';
+import { GoogleAuthProvider } from 'firebase/auth';
+import React, { useContext, useState } from 'react';
 import { FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
 const SignUp = () => {
-  const {createUser} = useContext(AuthContext);
+  const {createUser ,providerLogin} = useContext(AuthContext);
+  const googleProvider = new GoogleAuthProvider();
+ 
+ 
+
+      const [error, setError] = useState('');
+     
+      const navigate = useNavigate();
+      const location = useLocation();
+  
+      const from = location.state?.from?.pathname || '/';
+
+
+
+  const handleGoogleSignIn = () => {
+    providerLogin(googleProvider)
+        .then(result => {
+            const user = result.user;
+            console.log(user);
+            if(user.emailVerified){
+                navigate(from, {replace: true});
+            }
+        })
+        .catch(error => console.error(error))
+      }
   const handleSignUp = event =>{
       event.preventDefault();
       const form = event.target;
@@ -15,8 +40,11 @@ const SignUp = () => {
       .then(result => {
           const user = result.user;
           console.log(user);
-      })
-      .catch(err => console.error(err));
+          navigate(from, {replace: true});
+          form.reset();
+          setError('');})
+    .catch(error => console.error(error))
+
   }
 
 
@@ -56,9 +84,10 @@ const SignUp = () => {
           <input className="btn bg-rose-900 rounded-none" type="submit" value="Signup" />
          
         </div>
+        {error}
       </form>
       <h1 className='mx-5 mb-5'>Already signup  <Link to="/login" className=" text-lg font-semibold underline"> Login ..</Link> </h1> 
-      <h1 className='mx-5 mb-5'>or, continue with  <button className="btn bg-rose-900 rounded-none"><FaGoogle></FaGoogle> Google</button></h1> 
+      <h1 className='mx-5 mb-5'>or, continue with  <button onClick={handleGoogleSignIn }  className="btn bg-rose-900 rounded-none"><FaGoogle></FaGoogle> Google</button></h1> 
     </div>
   </div>
 </div>

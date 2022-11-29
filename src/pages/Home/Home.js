@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import { Link} from 'react-router-dom';
 import ServiceCard from '../ServiceCard/ServiceCard';
 
@@ -17,6 +18,7 @@ const Home = () => {
 
    
     return (
+        
 <div>
 
 <div className='  banner  h-96 text-center pt-20 text-white'>
@@ -59,7 +61,10 @@ const Home = () => {
 <div className='m-10'>
     <h1 className='font-extrabold text-6xl text-rose-900 '>PHOTOGRAPHY </h1>
     <div className="divider bg-rose-900 h-1"></div>
+
+  
 <div className='grid lg:grid-cols-2 md:grid-cols-2 gap-5 lg:mx-32  mt-5'>
+    
 <img className='lg:w-96 lg:h-72 w-72' src="https://images.pexels.com/photos/1130434/pexels-photo-1130434.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
 <img className='lg:w-96 lg:h-72 w-72' src="https://images.pexels.com/photos/312826/pexels-photo-312826.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
 <img className='lg:w-96 lg:h-72 w-72' src="https://images.pexels.com/photos/459198/pexels-photo-459198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />

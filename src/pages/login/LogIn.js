@@ -1,14 +1,23 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
-import toast from 'react-hot-toast';
 import {FaGoogle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
 const LogIn = () => {
 
-  const { providerLogin } = useContext(AuthContext);
+  const { signIn,  providerLogin } = useContext(AuthContext);
   const googleProvider = new GoogleAuthProvider();
+ 
+ 
+
+      const [error, setError] = useState('');
+     
+      const navigate = useNavigate();
+      const location = useLocation();
+  
+      const from = location.state?.from?.pathname || '/';
+
 
 
   const handleGoogleSignIn = () => {
@@ -17,18 +26,13 @@ const LogIn = () => {
             const user = result.user;
             console.log(user);
             if(user.emailVerified){
-                navigate(from, {replace: true});
-            }
-        })
-        .catch(error => console.error(error))
-      }
+              navigate(from, {replace: true});
+          }
+      })
+      .catch(error => console.error(error))
+    }
 
-  const [error, setError] = useState('');
-  const { signIn, setLoading } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const from = location.state?.from?.pathname || '/';
+  
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -39,25 +43,17 @@ const LogIn = () => {
     signIn(email, password)
         .then(result => {
             const user = result.user;
+            navigate(from, {replace: true});
             console.log(user);
             form.reset();
-            setError('');
-            if(user){
-              
-              navigate(from, {replace: true});
-          }
-            else{
-                toast.error('Your email is not verified. Please verify your email address.')
-            }
-        })
-        .catch(error => {
-            console.error(error)
-            setError(error.message);
-        })
-        .finally(() => {
-            setLoading(false);
-        })
-}
+            setError('');})
+      .catch(error => console.error(error))
+
+    }
+
+
+
+   
 
  
  

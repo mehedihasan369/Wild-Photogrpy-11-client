@@ -1,12 +1,18 @@
 import React from 'react';
+import { PhotoView } from 'react-photo-view';
 import { Link } from 'react-router-dom';
+
 
 const ServiceCard = ({ service }) => {
   const {_id, image, shortDescription, serviceTitle,rating} = service;
   return (
     <div>
-          <div className="card lg:w-96 md:w-80 w-72  bg-base-100 shadow-xl rounded-none">
-  <figure><img className='lg:w-96 md:w-full w-72  h-72 ' src={image} alt="Shoes" /></figure>
+          <div className="foo card lg:w-96 md:w-80 w-72  bg-base-100 shadow-xl rounded-none">
+  <figure>
+    <PhotoView src={image}  ><img className='lg:w-96 md:w-full w-72  h-72 ' style={{ objectFit: 'cover' }} src={image} alt="Shoes" /></PhotoView>
+  
+         
+    </figure>
   <div className="card-body">
     <h2 className="card-title font-extrabold">{serviceTitle}</h2>
     <p className='text-lg font-medium'>{shortDescription.slice(0, 80)}</p>
