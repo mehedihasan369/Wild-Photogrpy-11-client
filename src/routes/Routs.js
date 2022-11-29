@@ -4,6 +4,7 @@ import MyError from "../pages/404/MyError";
 import Blogs from "../pages/Blogs/Blogs";
 import Home from "../pages/Home/Home";
 import LogIn from "../pages/login/LogIn";
+import MyReview from "../pages/MyReview/MyReview";
 import ServiceDetails from "../pages/ServiceDetails/ServiceDetails";
 import Services from "../pages/Services/Services";
 import SignUp from "../pages/SignUp/SignUp";
@@ -44,6 +45,10 @@ export const routes = createBrowserRouter([
                     return fetch(`http://localhost:5000/services/${params.id}`)
                   },
                 element : <ServiceDetails></ServiceDetails>
+            },
+            {
+                path : '/reviews',
+                element : <MyReview></MyReview>
             },
             {
                 path : '/login',

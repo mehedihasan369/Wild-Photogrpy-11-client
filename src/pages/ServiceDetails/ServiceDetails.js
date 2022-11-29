@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLoaderData } from 'react-router';
+import Review from '../Review/Review';
 import  './ServiceDetails.css'
 
 
@@ -34,8 +35,10 @@ const ServiceDetails = () => {
 
 <div className='m-5 '>
     <h1 className='font-extrabold text-3xl'>Reviews</h1>
-    <div className='border-2 h-52 border-red-900 p-4'>
-        <h3 className=' text-xl'>Agdom bag doom sws sh asghw</h3>
+    <div className='border-2 h-auto  border-red-900 '>
+        <Review></Review>
+        <Review></Review>
+        <Review></Review>
     </div>
 </div>
 </section>
