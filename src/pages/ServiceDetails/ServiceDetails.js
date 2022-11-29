@@ -29,7 +29,21 @@ const ServiceDetails = () => {
 <h1><span className='font-bold'>{Speech2} :</span> {Speech2Description}</h1>
 <h1><span className='font-bold'>{Speech3} :</span> {Speech3Description}</h1>
 
+<form  className="card-body">
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Write a Review</span>
+          </label>
+          <input type="text" name='text' placeholder="text" className="input input-bordered rounded-none"  required />
+        </div>
 
+        <div className="form-control mt-6">
+          <input  className="btn bg-rose-900 rounded-none" type="submit" value="Submit" />
+          
+        </div>
+
+      
+      </form>
 </div>
 
 
