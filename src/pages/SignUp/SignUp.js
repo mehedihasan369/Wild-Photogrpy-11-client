@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
 const SignUp = () => {
-  const handleSignup =(event) =>{
-    event.preventDeafult();
+  const {createUser} = useContext(AuthContext);
+  const handleSignUp = event =>{
+      event.preventDefault();
+      const form = event.target;
+      const email = form.email.value;
+      const password = form.password.value;
+      
+      createUser(email, password)
+      .then(result => {
+          const user = result.user;
+          console.log(user);
+      })
+      .catch(err => console.error(err));
   }
+
+
+
+
     return (
         <div className='m-10 text-rose-900 text-center'>
  <div className="hero min-h-screen w-auto bg-base-200 ">
@@ -15,7 +31,7 @@ const SignUp = () => {
       <p className="py-6">For log in ,sign in first.</p>
     </div>
     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 rounded-none">
-      <form onSubmit={handleSignup} className="card-body">
+      <form onSubmit={handleSignUp} className="card-body">
         <div className="form-control">
           <label className="label">
             <span className="label-text">Name</span>

@@ -1,10 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Services from '../services/Services';
+import React, { useEffect, useState } from 'react';
+import { Link} from 'react-router-dom';
+import ServiceCard from '../ServiceCard/ServiceCard';
+
 import About from './About/About';
 import './Home.css' ;
 
 const Home = () => {
+    const [services, setServices] = useState([]);
+    
+    useEffect( () =>{
+        fetch('http://localhost:5000/services-home')
+        .then(res =>res.json())
+        .then(data => setServices(data))
+    }, []);
+    
+
+   
     return (
 <div>
 
@@ -20,17 +31,26 @@ const Home = () => {
 {/* OurServices */}
 <section className=' text-center'>
 <div className='m-10'>
-    <h1 className='font-extrabold text-6xl text-rose-900 m-10'>MY SERVICES </h1>
-<div className='grid lg:grid-cols-3 md:grid-cols-2 gap-2'>
-<Services className=''></Services>
-<Services className=''></Services>
-<Services className=''></Services>
-</div >
+<div>
+           <h1 className='font-extrabold text-6xl text-rose-900 m-10'>MY SERVICES </h1>
+        <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-2'>
+        {
+                    services.map(service => <ServiceCard key={service._id}
+                        service={service}
+                    ></ServiceCard>)
+                }
+   
+   </div >         
 
+
+    
+ 
+ 
+        </div>
  
 </div>
 
-<button className="btn rounded-none bg-rose-900 mb-10">see all</button>
+<Link to='/services' className="btn rounded-none bg-rose-900 mb-10">see all</Link>
 </section>
 
 <About></About>

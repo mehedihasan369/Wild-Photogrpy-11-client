@@ -1,24 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import ServiceCard from '../ServiceCard/ServiceCard';
 
 const Services = () => {
+     
+  const [services, setServices] = useState([]);
+    
+  useEffect( () =>{
+      fetch('http://localhost:5000/services')
+      .then(res =>res.json())
+      .then(data => setServices(data))
+  }, []);
+  
     return (
         <div>
-              <div>
-    <div className="card lg:w-96 w-72 bg-base-100 shadow-xl rounded-none">
-  <figure><img className='' src="https://images.pexels.com/photos/2055389/pexels-photo-2055389.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Shoes" /></figure>
-  <div className="card-body">
-    <h2 className="card-title font-extrabold">PHOTOGRAPHIC PRODUCTION & SCIENTIFIC DISSEMINATION</h2>
-    <p className='text-lg font-medium'>If you want to know more about my work or are in interested in developing a photographic project for a specific conservation area, let me know.</p>
-    <div className="divider bg-rose-900 h-1"></div> 
-    <div className="card-actions ">
-      <button className="btn rounded-none bg-rose-900 ">View details</button>
-    </div>
-  </div>
-</div>
+                    <div className='m-10'>
+           <h1 className='font-extrabold text-6xl text-rose-900 m-10'>MY SERVICES </h1>
+        <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-2'>
+        {
+                    services.map(service => <ServiceCard
+                        key={service._id}
+                        service={service}
+                    ></ServiceCard>)
+                }
+   
+   </div >         
 
 
-
-    </div>
+    
+ 
+ 
+        </div>
         </div>
     );
 };
