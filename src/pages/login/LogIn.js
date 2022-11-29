@@ -1,27 +1,63 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import {FaGoogle } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
 const LogIn = () => {
 
-  const {login} = useContext(AuthContext);
-  const handleLogin =(event) =>{
-    event.preventDeafult();
+  const [error, setError] = useState('');
+  const { login, setLoading } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || '/';
+
+  const handleLogin = event => {
+    event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
 
-
     login(email, password)
-    .then( result => {
-        const user = result.user;
-        console.log(user);
-    })
-    .then(error => console.log(error));
+        .then(result => {
+            const user = result.user;
+            console.log(user);
+            form.reset();
+            setError('');
+            if(user.emailVerified){
+                navigate(from, {replace: true});
+            }
+            else{
+                toast.error('Your email is not verified. Please verify your email address.')
+            }
+        })
+        .catch(error => {
+            console.error(error)
+            setError(error.message);
+        })
+        .finally(() => {
+            setLoading(false);
+        })
+}
+
+ 
+  // const handleLogin =(event) =>{
+  //   event.preventDefault();
+  //   const form = event.target;
+  //   const email = form.email.value;
+  //   const password = form.password.value;
+
+  //   signIn(email, password)
+  //       .then(result => {
+  //           const user = result.user;
+  //       const user = result.user;
+  //       console.log(user);
+  //   })
+  //   .then(error => console.log(error));
 
 
-  }
+  
     return (
         <div className='m-10 text-rose-900 text-center'>
  <div className="hero min-h-screen w-auto bg-base-200 ">
@@ -48,7 +84,7 @@ const LogIn = () => {
         </div>
         <div className="form-control mt-6">
           <input  className="btn bg-rose-900 rounded-none" type="submit" value="Login" />
-          
+          {error}
         </div>
 
       
