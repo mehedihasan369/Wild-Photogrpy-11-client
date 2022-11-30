@@ -6,7 +6,7 @@ const MyReview2 = ( {data } ) => {
  const {customer,review, email,serviceName} = data
     return (
         <div>
-                <div className="card w-auto m-10 p-5  bg-base-100 border">
+                <div className="card w-auto m-10 p-5 lg:h-auto bg-base-100 border">
            <div className="card-body border-2 border-rose-900">
             <div className="justify-start">
             <h2 className="text-3xl font-bold "> {customer} </h2>

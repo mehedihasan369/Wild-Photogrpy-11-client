@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Review = () => {
+const Review = ({data}) => {
+  const {customer,review,serviceName} =data
     return (
         <div>
     <div className="card w-auto m-2 p-2  bg-base-100 border">
@@ -9,8 +10,9 @@ const Review = () => {
            <div className="w-10 rounded-full ">
              <img src="https://placeimg.com/192/192/people" />
            </div>
-            </div>name</h2>
-             <p className='font-semibold'>If a dog chews shoes whose shoes does he choose?</p>
+            </div>{customer}</h2>
+             <p className='font-semibold'>Service:{serviceName}</p>
+             <p className='font-semibold'>{review}</p>
              <div className="card-actions justify-end">
              </div>
            </div>

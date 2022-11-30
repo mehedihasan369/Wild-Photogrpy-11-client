@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import Review from '../Review/Review';
@@ -11,16 +11,26 @@ const ServiceDetails = () => {
 
    const { user } = useContext(AuthContext);
 
+   const [reviews, setReviews] = useState([])
+
+   
+
+   useEffect(() => {
+       fetch(`http://localhost:5000/reviews?service=${_id}`)
+           .then(res => res.json())
+           .then(data => setReviews(data))
+   }, [_id])
+
   
 
    const handlePlaceOrder = event => {
-    if (user?.email) {
+    if (user) {
       event.preventDefault();
       const form = event.target;
       const name = form.name.value;
       const email = user?.email || 'unregistered';
       const review = form.review.value;
-      const photo = form.photoURL.value;
+    
      console.log(name,email,review)
 
      const reviews = {
@@ -28,8 +38,7 @@ const ServiceDetails = () => {
      serviceName: serviceTitle,
     customer: name,
      email,
-    review,
-    photo
+    review
 }
   
  //////////////////////////////////////
@@ -93,9 +102,8 @@ const ServiceDetails = () => {
     
      <input name="email" type="text" placeholder="Your email" defaultValue={user?.email} className="input input-ghost w-full  input-bordered" readOnly required />
  </div>
- 
+ <input name="review" type="text" placeholder=" Your review" className="input input-ghost w-full  input-bordered" required />
 
-    <textarea name="review" className="textarea textarea-bordered h-24 w-full" placeholder="Your review" required></textarea>
     <input className='btn  bg-rose-900 rounded-none' type="submit" value="Submit" />
       </form>
 </div>
@@ -112,9 +120,11 @@ const ServiceDetails = () => {
 <div className='m-5 '>
     <h1 className='font-extrabold text-3xl'>Reviews</h1>
     <div className='border-2 h-auto  border-red-900 '>
-        <Review></Review>
-        <Review></Review>
-        <Review></Review>
+        
+
+        {reviews.map(data =><Review key={data._id}
+           data={data}></Review>)}
+       
     </div>
 </div>
 </section>
