@@ -12,12 +12,11 @@ const PrivateRoute = ({children}) => {
         console.log('yes loading found');
         return <div>Loading...</div>
     }
-
-    if(user && user.uid) {
+    if (user) {
         return children;
+    } else {
+        return <Navigate to='/login' state={{ from: location }} replace ></Navigate>
     }
-    return <Navigate to='/login' state={{ from: location }} replace ></Navigate>
-
 
 };
 

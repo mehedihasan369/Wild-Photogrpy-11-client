@@ -11,39 +11,53 @@ const ServiceDetails = () => {
 
    const { user } = useContext(AuthContext);
 
+  
+
    const handlePlaceOrder = event => {
-    event.preventDefault();
-    const form = event.target;
-    const name = form.name.value;
-    const email = user?.email || 'unregistered';
-    const review = form.review.value;
-   console.log(name,email,review)
+    if (user?.email) {
+      event.preventDefault();
+      const form = event.target;
+      const name = form.name.value;
+      const email = user?.email || 'unregistered';
+      const review = form.review.value;
+      const photo = form.photoURL.value;
+     console.log(name,email,review)
 
-    const reviews = {
-             service : _id,
-            serviceName: serviceTitle,
-           customer: name,
-            email,
-           review
-    }
-
-    fetch('http://localhost:5000/reviews', {
-      method: 'POST',
-      headers: {
-          'content-type': 'application/json'
-      },
-      body: JSON.stringify(reviews)
+     const reviews = {
+      service : _id,
+     serviceName: serviceTitle,
+    customer: name,
+     email,
+    review,
+    photo
+}
+  
+ //////////////////////////////////////
+ fetch('http://localhost:5000/reviews', {
+  method: 'POST',
+  headers: {
+      'content-type': 'application/json'
+  },
+  body: JSON.stringify(reviews)
+})
+  .then(res => res.json())
+  .then(data => {
+      console.log(data)
+      if(data.acknowledged){
+          alert('Review placed successfully')
+          form.reset();
+          
+      }
   })
-      .then(res => res.json())
-      .then(data => {
-          console.log(data)
-          if(data.acknowledged){
-              alert('Review placed successfully')
-              form.reset();
-              
-          }
-      })
-      .catch(er => console.error(er));
+  .catch(er => console.error(er));
+    } else {
+      alert('Login first')
+    }
+  
+   
+
+
+ 
 
    
   }
@@ -75,9 +89,12 @@ const ServiceDetails = () => {
 <form  onSubmit={handlePlaceOrder} >
       
   <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-     <input name="name" type="text" placeholder=" Name" className="input input-ghost w-full  input-bordered" />
+     <input name="name" type="text" placeholder=" Name" className="input input-ghost w-full  input-bordered" required />
+    
      <input name="email" type="text" placeholder="Your email" defaultValue={user?.email} className="input input-ghost w-full  input-bordered" readOnly required />
  </div>
+ 
+
     <textarea name="review" className="textarea textarea-bordered h-24 w-full" placeholder="Your review" required></textarea>
     <input className='btn  bg-rose-900 rounded-none' type="submit" value="Submit" />
       </form>

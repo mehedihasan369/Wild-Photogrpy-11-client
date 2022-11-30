@@ -50,7 +50,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path : '/reviews',
-                element : <PrivateRoute> <MyReview></MyReview></PrivateRoute>
+                element : <MyReview></MyReview>
             },
             {
                 path : '/add-a-service',
