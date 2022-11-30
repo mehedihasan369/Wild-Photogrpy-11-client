@@ -1,16 +1,58 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLoaderData } from 'react-router';
-import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import Review from '../Review/Review';
 import  './ServiceDetails.css'
 
 
 const ServiceDetails = () => {
    const data = useLoaderData();
-   const { serviceTitle,image,rating, description,Speech1,Speech2,Speech3,Speech1Description,Speech2Description ,Speech3Description } =data
+   const {  _id , serviceTitle,image,rating, description,Speech1,Speech2,Speech3,Speech1Description,Speech2Description ,Speech3Description } =data
+
+   const { user } = useContext(AuthContext);
+
+   const handlePlaceOrder = event => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const email = user?.email || 'unregistered';
+    const review = form.review.value;
+   console.log(name,email,review)
+
+    const reviews = {
+             service : _id,
+            serviceName: serviceTitle,
+           customer: name,
+            email,
+           review
+    }
+
+    fetch('http://localhost:5000/reviews', {
+      method: 'POST',
+      headers: {
+          'content-type': 'application/json'
+      },
+      body: JSON.stringify(reviews)
+  })
+      .then(res => res.json())
+      .then(data => {
+          console.log(data)
+          if(data.acknowledged){
+              alert('Review placed successfully')
+              form.reset();
+              
+          }
+      })
+      .catch(er => console.error(er));
+
+   
+  }
+
+
+
     return (
         <div>
-<Link to='/add-a-service'>add</Link>
+
 <div className=' banner-2 text-center '>
    <img className='w-full h-96 brightness-50'  src={image} alt="" />
 <div className='font-extrabold sm:px-10  text-white text-6xl title'>
@@ -30,22 +72,24 @@ const ServiceDetails = () => {
 <h1><span className='font-bold'>{Speech2} :</span> {Speech2Description}</h1>
 <h1><span className='font-bold'>{Speech3} :</span> {Speech3Description}</h1>
 
-<form  className="card-body">
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Write a Review</span>
-          </label>
-          <input type="text" name='text' placeholder="text" className="input input-bordered rounded-none"  required />
-        </div>
-
-        <div className="form-control mt-6">
-          <input  className="btn bg-rose-900 rounded-none" type="submit" value="Submit" />
-          
-        </div>
-
+<form  onSubmit={handlePlaceOrder} >
       
+  <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+     <input name="name" type="text" placeholder=" Name" className="input input-ghost w-full  input-bordered" />
+     <input name="email" type="text" placeholder="Your email" defaultValue={user?.email} className="input input-ghost w-full  input-bordered" readOnly required />
+ </div>
+    <textarea name="review" className="textarea textarea-bordered h-24 w-full" placeholder="Your review" required></textarea>
+    <input className='btn  bg-rose-900 rounded-none' type="submit" value="Submit" />
       </form>
 </div>
+
+
+
+ 
+
+
+
+
 
 
 <div className='m-5 '>
