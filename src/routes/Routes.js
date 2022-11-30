@@ -25,7 +25,7 @@ export const routes = createBrowserRouter([
             {
                 path : '/blogs/:id',
                 loader: async({params}) => {
-                    return fetch(`http://localhost:5000/blogs/${params.id}`)
+                    return fetch(`https://wild-server.vercel.app/blogs/${params.id}`)
                   },
                 element : <SingleBlog></SingleBlog>
             },
@@ -33,14 +33,14 @@ export const routes = createBrowserRouter([
             {
                 path : '/blogs',
                 loader: async () => {
-                    return fetch(`http://localhost:5000/blogs`)
+                    return fetch(`https://wild-server.vercel.app/blogs`)
                   },
                 element : <Blogs></Blogs>
             },
             {
                 path : '/addServiceShow',
                 loader: async () => {
-                    return fetch(`http://localhost:5000/addServices`)
+                    return fetch(`https://wild-server.vercel.app/addServices`)
                   },
                 element : <AddedServiceShow></AddedServiceShow>
             },
@@ -52,7 +52,7 @@ export const routes = createBrowserRouter([
             {
                 path : '/services/:id',
                 loader: async({params}) => {
-                    return fetch(`http://localhost:5000/services/${params.id}`)
+                    return fetch(`https://wild-server.vercel.app/services/${params.id}`)
                   },
                 element : <ServiceDetails></ServiceDetails>
             },

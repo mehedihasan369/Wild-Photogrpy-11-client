@@ -12,7 +12,7 @@ const Home = () => {
     const [services, setServices] = useState([]);
     
     useEffect( () =>{
-        fetch('http://localhost:5000/services-home')
+        fetch('https://wild-server.vercel.app/services-home')
         .then(res =>res.json())
         .then(data => setServices(data))
     }, []);

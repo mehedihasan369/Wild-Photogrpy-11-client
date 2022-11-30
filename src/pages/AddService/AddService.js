@@ -30,7 +30,7 @@ const AddService = () => {
         price,
         }
     
-            fetch('http://localhost:5000/addServices', {
+            fetch('https://wild-server.vercel.app/addServices', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
