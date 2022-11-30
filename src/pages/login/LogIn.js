@@ -24,8 +24,7 @@ const LogIn = () => {
     providerLogin(googleProvider)
         .then(result => {
             const user = result.user;
-            console.log(user);
-            if(user.emailVerified){
+            if(user){
               navigate(from, {replace: true});
           }
       })
@@ -43,7 +42,9 @@ const LogIn = () => {
     signIn(email, password)
         .then(result => {
             const user = result.user;
-            navigate(from, {replace: true});
+            if(user){
+              navigate(from, {replace: true});
+          }
             console.log(user);
             form.reset();
             setError('');})

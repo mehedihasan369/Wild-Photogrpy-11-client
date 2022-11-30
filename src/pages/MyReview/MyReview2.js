@@ -1,9 +1,10 @@
 import React from 'react';
 
 
-const MyReview2 = ( {data } ) => {
+const MyReview2 = ( {data ,handleStatusUpdate,handleDelete} ) => {
   
- const {customer,review, email,serviceName} = data
+  
+ const {_id ,customer,review, email,serviceName} = data
     return (
         <div>
                 <div className="card w-auto m-10 p-5 lg:h-auto bg-base-100 border">
@@ -16,8 +17,8 @@ const MyReview2 = ( {data } ) => {
             
              <p className='font-semibold'>{review}</p>
              <div className="card-actions justify-end">
-               <button  className=" btn bg-rose-900">Edit</button>
-               <button className="  btn bg-rose-900">Delete</button>
+               <button  onClick={() => handleStatusUpdate(_id)}  className=" btn bg-rose-900">Edit</button>
+               <button onClick={() => handleDelete(_id)} className="  btn bg-rose-900">Delete</button>
              </div>
            </div>
      </div>
