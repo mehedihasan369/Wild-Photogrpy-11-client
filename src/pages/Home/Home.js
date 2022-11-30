@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { Link} from 'react-router-dom';
+import AddedServiceShow from '../AddService/AddedServiceShow';
+import AddService from '../AddService/AddService';
 import ServiceCard from '../ServiceCard/ServiceCard';
 
 import About from './About/About';
@@ -57,10 +59,18 @@ const Home = () => {
 
 <About></About>
 
+<AddedServiceShow></AddedServiceShow>
+
+
+
+
 <section className='text-center'>
 <div className='m-10'>
     <h1 className='font-extrabold text-6xl text-rose-900 '>PHOTOGRAPHY </h1>
     <div className="divider bg-rose-900 h-1"></div>
+
+
+   
 
   
 <div className='grid lg:grid-cols-2 md:grid-cols-2 gap-5 lg:mx-32  mt-5'>

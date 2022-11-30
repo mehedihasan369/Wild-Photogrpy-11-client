@@ -39,28 +39,7 @@ const MyReview = () => {
   }
 
 
-//   const handleStatusUpdate = id => {
-//     fetch(`http://localhost:5000/reviews/${id}`, {
-//         method: 'PATCH',
-//         headers: {
-//             'content-type': 'application/json',
-//             authorization: `Bearer ${localStorage.getItem('genius-token')}`
-//         },
-//         body: JSON.stringify({ status: 'Approved' })
-//     })
-//         .then(res => res.json())
-//         .then(data => {
-//             console.log(data);
-//             if (data.modifiedCount > 0) {
-//                 const remaining = reviews.filter(odr => odr._id !== id);
-//                 const approving = reviews.find(odr => odr._id === id);
-//                 approving.status = 'Approved'
-
-//                 const newReviews = [approving, ...remaining];
-//                 setReviews(newReviews);
-//             }
-//         })
-// }
+ 
     
     return (
         <div className='text-center'>

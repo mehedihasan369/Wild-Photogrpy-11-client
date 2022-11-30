@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layouts/Main";
 import MyError from "../pages/404/MyError";
+import AddedServiceShow from "../pages/AddService/AddedServiceShow";
 import AddService from "../pages/AddService/AddService";
 import Blogs from "../pages/Blogs/Blogs";
 import Home from "../pages/Home/Home";
@@ -24,7 +25,7 @@ export const routes = createBrowserRouter([
             {
                 path : '/blogs/:id',
                 loader: async({params}) => {
-                    return fetch(`https://my-edu-server.vercel.app/blogs/${params.id}`)
+                    return fetch(`http://localhost:5000/blogs/${params.id}`)
                   },
                 element : <SingleBlog></SingleBlog>
             },
@@ -32,9 +33,16 @@ export const routes = createBrowserRouter([
             {
                 path : '/blogs',
                 loader: async () => {
-                    return fetch(`https://my-edu-server.vercel.app/blogs`)
+                    return fetch(`http://localhost:5000/blogs`)
                   },
                 element : <Blogs></Blogs>
+            },
+            {
+                path : '/addServiceShow',
+                loader: async () => {
+                    return fetch(`http://localhost:5000/addServices`)
+                  },
+                element : <AddedServiceShow></AddedServiceShow>
             },
             {
                 path: '/services',

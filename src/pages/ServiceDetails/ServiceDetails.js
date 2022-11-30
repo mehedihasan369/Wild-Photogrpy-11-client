@@ -23,13 +23,14 @@ const ServiceDetails = () => {
 
   
 
-   const handlePlaceOrder = event => {
+   const handlePlaceReview = event => {
     if (user) {
       event.preventDefault();
       const form = event.target;
       const name = form.name.value;
       const email = user?.email || 'unregistered';
       const review = form.review.value;
+      const photoURL = form.photoURL.value;
     
      console.log(name,email,review)
 
@@ -38,7 +39,8 @@ const ServiceDetails = () => {
      serviceName: serviceTitle,
     customer: name,
      email,
-    review
+    review,
+    photoURL
 }
   
  //////////////////////////////////////
@@ -62,12 +64,6 @@ const ServiceDetails = () => {
     } else {
       alert('Login first')
     }
-  
-   
-
-
- 
-
    
   }
 
@@ -95,7 +91,7 @@ const ServiceDetails = () => {
 <h1><span className='font-bold'>{Speech2} :</span> {Speech2Description}</h1>
 <h1><span className='font-bold'>{Speech3} :</span> {Speech3Description}</h1>
 
-<form  onSubmit={handlePlaceOrder} >
+<form  onSubmit={handlePlaceReview} >
       
   <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
      <input name="name" type="text" placeholder=" Name" className="input input-ghost w-full  input-bordered" required />
@@ -103,6 +99,7 @@ const ServiceDetails = () => {
      <input name="email" type="text" placeholder="Your email" defaultValue={user?.email} className="input input-ghost w-full  input-bordered" readOnly required />
  </div>
  <input name="review" type="text" placeholder=" Your review" className="input input-ghost w-full  input-bordered" required />
+ <input name="photoURL" type="text" placeholder=" photoURL" className="input input-ghost w-full  input-bordered" required />
 
     <input className='btn  bg-rose-900 rounded-none' type="submit" value="Submit" />
       </form>
