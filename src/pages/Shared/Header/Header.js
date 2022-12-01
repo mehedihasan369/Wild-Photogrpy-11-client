@@ -20,7 +20,7 @@ const Header = () => {
           <>
          <li> <Link onClick={()=>{document.title='My Reviews'}}   className=' font-semibold m-1' to='/reviews'>My Reviews</Link></li>
          <li> <Link onClick={()=>{document.title='Add a service'}}   className=' font-semibold m-1' to='/add-a-service'>Add A Service</Link></li>
-          <li><Link className="btn bg-rose-900 m-1 font-semibold" onClick={handleLogOut}>Logout</Link></li>
+          <li><Link  className="btn bg-rose-900 m-1 font-semibold" onClick={handleLogOut}>Logout</Link></li>
           </>
           :
           <>
