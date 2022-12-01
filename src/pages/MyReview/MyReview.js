@@ -39,13 +39,73 @@ const MyReview = () => {
   }
 
 
+  const handleStatusUpdate = (id,event )=> {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const email = user?.email || 'unregistered';
+    const review = form.review.value;
+    const photoURL = form.photoURL.value;
+  
+   console.log(name,email,review)
+
+   const reviews = {
+  
+  customer: name,
+   email,
+  review,
+  photoURL
+}
+
+
+    fetch(`https://wild-server.vercel.app/reviews/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'content-type': 'application/json'
+           
+        },
+        body: JSON.stringify( reviews )
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if (data.modifiedCount > 0) {
+                const remaining = reviews.filter(odr => odr._id !== id);
+                const approving = reviews.find(odr => odr._id === id);
+                approving.status = 'Approved'
+
+                const newReviews = [approving, ...remaining];
+                setReviews(newReviews);
+            }
+        })
+}
+
+// headers: {
+//     'content-type': 'application/json'
+// },
+// body: JSON.stringify(reviews)
+// })
+// .then(res => res.json())
+// .then(data => {
+//     console.log(data)
+//     if(data.acknowledged){
+//         alert('Review placed successfully')
+//         form.reset();
+    
+//     }
+// })
+// .catch(er => console.error(er));
+//   } else {
+//     alert('Login first')
+//   }
+
  
     
     return (
         <div className='text-center'>
             <h1 className='text-3xl font-bold'>My Reviews {reviews.length}</h1>
     <div className='grid lg:grid-cols-3 gap-4 '>
-    {reviews.map(data =><MyReview2 key={data._id} handleDelete={handleDelete} 
+    {reviews.map(data =><MyReview2 key={data._id} handleDelete={handleDelete} handleStatusUpdate={handleStatusUpdate}
            data={data}></MyReview2>)}
 
     </div>
